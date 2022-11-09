@@ -15,10 +15,10 @@ import java.util.concurrent.Executors;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class NamedLockStockFacadeTest {
+class LettuceLockStockFacadeTest {
 
     @Autowired
-    NamedLockStockFacade stockFacade;
+    LettuceLockStockFacade stockFacade;
 
     @Autowired
     StockRepository stockRepository;
@@ -47,6 +47,8 @@ class NamedLockStockFacadeTest {
             executorService.submit(() -> {
                 try {
                     stockFacade.decrease(1L, 1L);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 } finally {
                     latch.countDown();
                 }
