@@ -15,6 +15,10 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
     @Lock(value = LockModeType.PESSIMISTIC_WRITE)
     @Query("select s from Stock s where s.id = :id")
     Stock findByIdWithPessimisticLock(Long id);
+
+    @Lock(value = LockModeType.OPTIMISTIC)
+    @Query("select s from Stock s where s.id = :id")
+    Stock findByIdWithOptimisticLock(Long id);
 }
 
 /**
@@ -23,6 +27,7 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
  *   exclusive lock 을 걸게되면 다른 트랜잭션에서는 lock 이 해제되기전에 데이터를 가져갈 수 없게 된다.
  *   데드락이 걸릴 수 있기 때문에 주의하여 사용하여야 합니다.
  *   로우나 테이블 단위로 Lock 을 건다.
+ *   충돌이 빈번할 경우 유용
  *
  * 2. Optimistic Lock
  * - 실제로 Lock 을 이용하지 않고 버전을 이용함으로써 정합성을 맞추는 방법.
