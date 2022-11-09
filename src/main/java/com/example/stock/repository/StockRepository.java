@@ -39,4 +39,5 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
  *   이름을 가진 lock 을 획득한 후 해제할때까지 다른 세션은 이 lock 을 획득할 수 없도록 함.
  *   주의할점은 transaction 이 종료될 때 lock 이 자동으로 해제되지 않는다.
  *   별도의 명령어로 해제를 수행해주거나 선점시간이 끝나야 해제된다.
+ *   분산 Lock
  **/
